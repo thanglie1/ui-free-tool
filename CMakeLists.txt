@@ -14,11 +14,20 @@ set(Qt5Qml_DIR D:/DevTool/Qt/5.12.3/msvc2017_64/lib/cmake/Qt5Qml)
 set(Qt5Network_DIR D:/DevTool/Qt/5.12.3/msvc2017_64/lib/cmake/Qt5Network)
 set(Qt5Gui_DIR D:/DevTool/Qt/5.12.3/msvc2017_64/lib/cmake/Qt5Gui)
 set(Qt5Core_DIR D:/DevTool/Qt/5.12.3/msvc2017_64/lib/cmake/Qt5Core)
+set(Qt5Widgets_DIR D:/DevTool/Qt/5.12.3/msvc2017_64/lib/cmake/Qt5Widgets)
 
 find_package(Qt5 COMPONENTS Core Quick REQUIRED)
 find_package(Qt5Core REQUIRED)
 find_package(Qt5Network REQUIRED)
+find_package(Qt5Widgets REQUIRED)
 
-add_executable(${PROJECT_NAME} "main.cpp" "qml.qrc")
+include_directories(../MessagingAppFramework/include)
+include_directories(../gears-service)
+
+add_executable(${PROJECT_NAME}
+    "main.cpp"
+    "qml.qrc"
+    )
+	
 target_compile_definitions(${PROJECT_NAME} PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
-target_link_libraries(${PROJECT_NAME} PRIVATE Qt5::Core Qt5::Quick)
+target_link_libraries(${PROJECT_NAME} PRIVATE Qt5::Core Qt5::Quick Qt5::Widgets)
